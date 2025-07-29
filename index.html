@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPath - Find Your Learning Journey</title>
+    <link rel="stylesheet" href="C:\Users\dhava\OneDrive\Desktop\course_recommend\styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-book-open"></i> EduPath</h1>
+            <div id="auth-status">
+               <button id="learning-cart-btn" class="btn">
+                    <i class="fas fa-shopping-cart"></i> Learning Path
+                    <span id="learning-cart-count">0</span>
+                </button>
+                <button id="my-learning-path-btn" class="btn">My Learning Path</button>
+                <button id="login-btn" class="btn">Login</button>
+                <button id="signup-btn" class="btn">Sign Up</button>
+                <div id="user-profile" class="hidden">
+                    <span id="username-display"></span>
+                    <button id="logout-btn" class="btn">Logout</button>
+                </div>
+            </div>
+        </header>
+
+       <div id="auth-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="tabs">
+                    <button class="tab-btn active" id="login-tab">Login</button>
+                    <button class="tab-btn" id="signup-tab">Sign Up</button>
+                </div>
+                
+                <form id="login-form">
+                    <h2>Login to Your Account</h2>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <p id="login-error" class="error-message"></p>
+                </form>
+                
+               <form id="signup-form" class="hidden">
+                    <h2>Create a New Account</h2>
+                    <div class="form-group">
+                        <label for="signup-username">Username</label>
+                        <input type="text" id="signup-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                    <p id="signup-error" class="error-message"></p>
+                </form>
+            </div>
+        </div>
+
+       <div id="learning-cart-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close close-learning-cart">&times;</span>
+                <h2>Your Learning Path</h2>
+                <div id="empty-learning-cart" class="hidden">
+                    <p>Your learning path is empty. Add courses to continue.</p>
+                </div>
+                <div id="learning-cart-items-container">
+                    <div id="learning-cart-items"></div>
+                </div>
+                <div id="learning-cart-summary" class="hidden">
+                    <div id="learning-cart-total">Total: ₹0</div>
+                    <button id="enroll-btn" class="btn btn-primary">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+
+         <div id="my-learning-path-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close close-my-learning-path">&times;</span>
+                <h2>My Learning Path</h2>
+                <div id="no-enrolled-courses" class="hidden">
+                    <p>You haven't enrolled in any courses yet.</p>
+                </div>
+                <div id="enrolled-courses"></div>
+            </div>
+        </div>
+
+       <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>Discover the Perfect Course for Your Career Growth</h2>
+                    <p>Browse through thousands of courses from India's leading educators and institutions</p>
+                </div>
+            </section>
+
+            <section class="filters">
+                <h2>Find Your Learning Path</h2>
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <label for="price-filter">Price Range</label>
+                        <select id="price-filter">
+                            <option value="all">All Prices</option>
+                            <option value="free">Free</option>
+                            <option value="paid">Paid</option>
+                            <option value="0-1999">₹0 - ₹1,999</option>
+                            <option value="2000-4999">₹2,000 - ₹4,999</option>
+                            <option value="5000+">₹5,000+</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="duration-filter">Duration</label>
+                        <select id="duration-filter">
+                            <option value="all">All Durations</option>
+                            <option value="short">Short (0-4 weeks)</option>
+                            <option value="medium">Medium (1-3 months)</option>
+                            <option value="long">Long (3+ months)</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="difficulty-filter">Difficulty</label>
+                        <select id="difficulty-filter">
+                            <option value="all">All Levels</option>
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="search-input">Search</label>
+                        <input type="text" id="search-input" placeholder="Search courses...">
+                    </div>
+                </div>
+            </section>
+
+            <section class="courses-container">
+                <div id="courses-grid">
+                    
+                </div>
+                <div id="loading" class="hidden">
+                    <div class="spinner"></div>
+                </div>
+                <div id="no-results" class="hidden">
+                    <p>No courses found matching your filters. Try adjusting your search criteria.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About EduPath</h3>
+                    <p>Helping students find their perfect learning journey since 2025</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Browse Courses</a></li>
+                        <li><a href="#">For Educators</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Developed by Dhawal Khandelwal & Kavya Bagherwal | Nirma University</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="C:\Users\dhava\OneDrive\Desktop\course_recommend\script.js"></script>
+</body>
+</html>
